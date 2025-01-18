@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NGX_VER: '1.26.2'
-      APL_VER: '3.20'
+      APL_VER: '3.21'
       HUB_ID: 'vndroid'
     steps:
       - name: Checkout
