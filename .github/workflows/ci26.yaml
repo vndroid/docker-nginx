@@ -1,4 +1,4 @@
-name: ci
+name: ci-26
 on:
   push:
     branches: ['main']
