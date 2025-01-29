@@ -3,7 +3,7 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
-FROM nginx:1.24.0-alpine-slim
+FROM ghcr.io/vndroid/nginx:1.24.0-alpine3.19-slim
 
 ENV NJS_VERSION   0.7.12
 
