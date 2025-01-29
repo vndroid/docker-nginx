@@ -1,5 +1,6 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![build status badge](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci.yml?branch=main&label=GitHub%20CI)](https://github.com/vndroid/docker-nginx/actions?query=workflow%3Aci+branch%3Amain++)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci24.yaml?branch=main&label=1.24%20CI%20)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci26.yaml?branch=main&label=1.26%20CI%20)
 
 ## Quick reference
 
