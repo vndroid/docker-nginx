@@ -1,9 +1,7 @@
-name: ci
+name: ci24
 on:
   push:
     branches: ['main']
-    paths:
-      - 'stable/1.24/*'
 jobs:
   docker:
     runs-on: ubuntu-22.04
