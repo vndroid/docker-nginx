@@ -12,10 +12,18 @@
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`1.26.2-alpine3.21-slim`](https://github.com/vndroid/docker-nginx/blob/main/stable/alpine-slim/Dockerfile)
-- [`1.26.2-alpine3.21`](https://github.com/vndroid/docker-nginx/blob/main/stable/alpine/Dockerfile)
-- [`1.26.2-alpine3.21-perl`](https://github.com/vndroid/docker-nginx/blob/main/stable/alpine-perl/Dockerfile)
-- [`1.26.2-alpine3.21-otel`](https://github.com/vndroid/docker-nginx/blob/main/stable/alpine-otel/Dockerfile)
+**1.24**
+
+- [`1.24.0-alpine3.19-slim`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.24/alpine-slim/Dockerfile)
+- [`1.24.0-alpine3.19`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.24/alpine/Dockerfile)
+- [`1.24.0-alpine3.19-perl`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.24/alpine-perl/Dockerfile)
+
+**1.26**
+
+- [`1.26.2-alpine3.21-slim`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.26/alpine-slim/Dockerfile)
+- [`1.26.2-alpine3.21`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.26/alpine/Dockerfile)
+- [`1.26.2-alpine3.21-perl`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.26/alpine-perl/Dockerfile)
+- [`1.26.2-alpine3.21-otel`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.26/alpine-otel/Dockerfile)
 
 ## Quick reference (cont.)
 
