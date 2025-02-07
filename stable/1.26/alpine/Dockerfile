@@ -3,7 +3,7 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
-FROM ghcr.io/vndroid/nginx:1.26.2-alpine3.21-slim
+FROM ghcr.io/vndroid/nginx:1.26.3-alpine3.21-slim
 
 ENV NJS_VERSION=0.8.9
 ENV NJS_RELEASE=1
@@ -50,16 +50,16 @@ RUN set -x \
             && su nobody -s /bin/sh -c " \
                 export HOME=${tempDir} \
                 && cd ${tempDir} \
-                && curl -f -L -O https://github.com/nginx/pkg-oss/archive/e79778b7c90897ad40ce370d63ff607f606d5837.tar.gz \
-                && PKGOSSCHECKSUM=\"76201470a5b9409f5a5e1abfcba1e725db39a3a363d72bfdd34f03f55e71672905096534a32c192a76ea05a78b574ddae324a96237cfbc00290aac6873c57f37 *e79778b7c90897ad40ce370d63ff607f606d5837.tar.gz\" \
-                && if [ \"\$(openssl sha512 -r e79778b7c90897ad40ce370d63ff607f606d5837.tar.gz)\" = \"\$PKGOSSCHECKSUM\" ]; then \
+                && curl -f -L -O https://github.com/nginx/pkg-oss/archive/${NGINX_VERSION}-${PKG_RELEASE}.tar.gz \
+                && PKGOSSCHECKSUM=\"3a4e869eded0c71e92f522e94edffea7fbfb5e78886ea7e484342fa2e028c62099a67d08860c249bf93776da97b924225e0d849dbb4697b298afe5421d7d6fea *${NGINX_VERSION}-${PKG_RELEASE}.tar.gz\" \
+                && if [ \"\$(openssl sha512 -r ${NGINX_VERSION}-${PKG_RELEASE}.tar.gz)\" = \"\$PKGOSSCHECKSUM\" ]; then \
                     echo \"pkg-oss tarball checksum verification succeeded!\"; \
                 else \
                     echo \"pkg-oss tarball checksum verification failed!\"; \
                     exit 1; \
                 fi \
-                && tar xzvf e79778b7c90897ad40ce370d63ff607f606d5837.tar.gz \
-                && cd pkg-oss-e79778b7c90897ad40ce370d63ff607f606d5837 \
+                && tar xzvf ${NGINX_VERSION}-${PKG_RELEASE}.tar.gz \
+                && cd pkg-oss-${NGINX_VERSION}-${PKG_RELEASE} \
                 && cd alpine \
                 && make module-geoip module-image-filter module-njs module-xslt \
                 && apk index --allow-untrusted -o ${tempDir}/packages/alpine/${apkArch}/APKINDEX.tar.gz ${tempDir}/packages/alpine/${apkArch}/*.apk \

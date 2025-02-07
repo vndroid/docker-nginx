@@ -7,7 +7,7 @@ FROM alpine:3.21
 
 LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 
-ENV NGINX_VERSION=1.26.2
+ENV NGINX_VERSION=1.26.3
 ENV PKG_RELEASE=1
 ENV DYNPKG_RELEASE=2
 
@@ -58,16 +58,16 @@ RUN set -x \
             && su nobody -s /bin/sh -c " \
                 export HOME=${tempDir} \
                 && cd ${tempDir} \
-                && curl -f -L -O https://github.com/nginx/pkg-oss/archive/e79778b7c90897ad40ce370d63ff607f606d5837.tar.gz \
-                && PKGOSSCHECKSUM=\"76201470a5b9409f5a5e1abfcba1e725db39a3a363d72bfdd34f03f55e71672905096534a32c192a76ea05a78b574ddae324a96237cfbc00290aac6873c57f37 *e79778b7c90897ad40ce370d63ff607f606d5837.tar.gz\" \
-                && if [ \"\$(openssl sha512 -r e79778b7c90897ad40ce370d63ff607f606d5837.tar.gz)\" = \"\$PKGOSSCHECKSUM\" ]; then \
+                && curl -f -L -O https://github.com/nginx/pkg-oss/archive/${NGINX_VERSION}-${PKG_RELEASE}.tar.gz \
+                && PKGOSSCHECKSUM=\"973690e64fa47e3704e817a3b08205b9e3f8c0cbe31825d9d62a81c11eb3aa186df015f27fdfd48c8799ffc528e38a9168c592ae665e4835c2d28638ec5f7845 *${NGINX_VERSION}-${PKG_RELEASE}.tar.gz\" \
+                && if [ \"\$(openssl sha512 -r ${NGINX_VERSION}-${PKG_RELEASE}.tar.gz)\" = \"\$PKGOSSCHECKSUM\" ]; then \
                     echo \"pkg-oss tarball checksum verification succeeded!\"; \
                 else \
                     echo \"pkg-oss tarball checksum verification failed!\"; \
                     exit 1; \
                 fi \
-                && tar xzvf e79778b7c90897ad40ce370d63ff607f606d5837.tar.gz \
-                && cd pkg-oss-e79778b7c90897ad40ce370d63ff607f606d5837 \
+                && tar xzvf ${NGINX_VERSION}-${PKG_RELEASE}.tar.gz \
+                && cd pkg-oss-${NGINX_VERSION}-${PKG_RELEASE} \
                 && cd alpine \
                 && make base \
                 && apk index --allow-untrusted -o ${tempDir}/packages/alpine/${apkArch}/APKINDEX.tar.gz ${tempDir}/packages/alpine/${apkArch}/*.apk \
