@@ -4,19 +4,19 @@ on:
     branches: ['main']
     paths:
       - 'stable/1.28/**'
+  workflow_dispatch:
 jobs:
   docker_build:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
-      attestations: write
-      id-token: write
+      attestations: read
     env:
+      NAME: 'nginx'
       MILESTONE: '1.28'
       NGX_VER: '1.28.0'
       APL_VER: '3.21'
-      HUB_ID: 'vndroid'
       REGISTRY: ghcr.io
     steps:
       - name: Checkout
@@ -25,7 +25,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -37,25 +37,25 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-slim
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-slim
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-slim
       - name: Build and Push "alpine"
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }},${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:latest
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }},${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:latest
       - name: Build and Push "alpine-perl"
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-perl
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-perl
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-perl
       - name: Build and Push "alpine-otel"
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-otel
           push: true
-          tags: ghcr.io/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-otel
+          tags: ghcr.io/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-otel
