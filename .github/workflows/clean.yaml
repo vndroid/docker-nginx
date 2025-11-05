@@ -2,16 +2,39 @@ name: cleanup
 on:
   push:
     branches: ['main']
+  workflow_dispatch:
 jobs:
-  ghcr_clean:
+  prepare:
+    name: Output package name
     runs-on: ubuntu-24.04
+    outputs:
+      pkg_name: ${{ steps.parse.outputs.pkg_name }}
     steps:
-      - name: Delete all containers from repository without tags
-        uses: Chizkiyahu/delete-untagged-ghcr-action@v6
+      - name: Set package name
+        id: parse
+        shell: bash
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          PKG_NAME="${REPO_NAME##*-}"
+          if [ -z "$PKG_NAME" ] ; then
+            echo "$PKG_NAME Empty"
+            exit 1
+          fi
+          echo "$PKG_NAME"
+          echo "pkg_name=${PKG_NAME}" >> $GITHUB_OUTPUT
+  cleanup:
+    name: Cleanup untagged images
+    runs-on: ubuntu-24.04
+    permissions:
+      packages: write
+    needs: 
+      - prepare 
+    steps:
+      - uses: dataaxiom/ghcr-cleanup-action@v1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            token: ${{ secrets.PAT_TOKEN }}
-            repository_owner: ${{ github.repository_owner }}
-            repository: ${{ github.repository }}
-            untagged_only: true
-            owner_type: user
-        
+          delete-untagged: true
+          owner: ${{ github.repository_owner }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          package: ${{ needs.prepare.outputs.pkg_name }}
