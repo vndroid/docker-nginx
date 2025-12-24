@@ -1,18 +1,18 @@
 name: nginx-1.22
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
     paths:
-      - 'stable/1.22/**'
+      - "stable/1.22/**"
   schedule:
-    - cron: '0 2 7 7 *'
+    - cron: "0 2 2 2 *"
   workflow_dispatch:
 
 env:
-  NAME: 'nginx'
-  MILESTONE: '1.22'
-  NGX_VER: '1.22.1'
-  APL_VER: '3.17'
+  NAME: "nginx"
+  MILESTONE: "1.22"
+  NGX_VER: "1.22.1"
+  APL_VER: "3.17"
   REGISTRY: ghcr.io
 
 jobs:
