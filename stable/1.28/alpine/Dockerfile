@@ -1,6 +1,6 @@
-FROM ghcr.io/vndroid/nginx:1.28.0-alpine3.21-slim
+FROM ghcr.io/vndroid/nginx:1.28.0-alpine3.23-slim
 
-ENV NJS_VERSION   0.8.10
+ENV NJS_VERSION   0.9.4
 ENV NJS_RELEASE   1
 
 RUN set -x \

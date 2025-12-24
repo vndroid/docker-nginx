@@ -1,4 +1,4 @@
-FROM ghcr.io/vndroid/nginx:1.28.0-alpine3.21
+FROM ghcr.io/vndroid/nginx:1.28.0-alpine3.23
 
 ENV OTEL_VERSION   0.1.2
 
