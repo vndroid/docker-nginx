@@ -1,4 +1,5 @@
-FROM ghcr.io/vndroid/nginx:1.28.1-alpine3.23-slim
+ARG AVER
+FROM ghcr.io/vndroid/nginx:1.28.1-alpine${AVER}-slim
 
 ENV NJS_VERSION=0.9.4
 ENV NJS_RELEASE=1
