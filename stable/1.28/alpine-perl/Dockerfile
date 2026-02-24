@@ -1,5 +1,4 @@
-ARG AVER
-FROM ghcr.io/vndroid/nginx:1.28.1-alpine${AVER}
+FROM ghcr.io/vndroid/nginx:1.28.1-alpine3.23
 
 RUN set -x \
     && apkArch="$(cat /etc/apk/arch)" \

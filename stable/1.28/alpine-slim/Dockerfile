@@ -1,5 +1,4 @@
-ARG AVER
-FROM alpine:${AVER}
+FROM alpine:3.23
 
 LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 
