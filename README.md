@@ -1,4 +1,5 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-20.yaml?branch=main&label=1.20%20CI%20)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-22.yaml?branch=main&label=1.22%20CI%20)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-24.yaml?branch=main&label=1.24%20CI%20)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-26.yaml?branch=main&label=1.26%20CI%20)
@@ -13,6 +14,11 @@
   [the Docker Community Slack](https://dockr.ly/comm-slack),[Server Fault](https://serverfault.com/help/on-topic),[Unix & Linux](https://unix.stackexchange.com/help/on-topic), or [Stack Overflow⁠](https://stackoverflow.com/help/on-topic)
 
 ## Supported tags and respective `Dockerfile` links
+
+**1.20**
+
+- [`1.20.2-alpine3.15`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.20/alpine/Dockerfile)
+- [`1.20.2-alpine3.15-perl`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.20/alpine-perl/Dockerfile)
 
 **1.22**
 
