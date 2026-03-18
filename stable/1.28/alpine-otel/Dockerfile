@@ -1,4 +1,5 @@
-FROM ghcr.io/vndroid/nginx:1.28.1-alpine3.23
+ARG AVER
+FROM ghcr.io/vndroid/nginx:1.28.1-alpine${AVER}
 
 ENV OTEL_VERSION=0.1.2
 
