@@ -11,7 +11,7 @@ on:
 env:
   NAME: "nginx"
   MILESTONE: "1.28"
-  NGX_VER: "1.28.0"
+  NGX_VER: "1.28.1"
   APL_VER: "3.23"
   REGISTRY: ghcr.io
 
