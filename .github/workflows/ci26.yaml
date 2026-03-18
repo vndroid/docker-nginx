@@ -4,6 +4,8 @@ on:
     branches: ['main']
     paths:
       - 'stable/1.26/**'
+  schedule:
+    - cron: '0 6 * * 0'
   workflow_dispatch:
 jobs:
   docker_build:
