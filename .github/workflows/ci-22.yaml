@@ -1,0 +1,95 @@
+name: nginx-1.22
+on:
+  push:
+    branches: ['main']
+    paths:
+      - 'stable/1.22/**'
+  schedule:
+    - cron: '0 2 7 7 *'
+  workflow_dispatch:
+
+env:
+  NAME: 'nginx'
+  MILESTONE: '1.22'
+  NGX_VER: '1.22.1'
+  APL_VER: '3.17'
+  REGISTRY: ghcr.io
+
+jobs:
+  build-alpine-slim:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Login to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and Push "alpine-slim"
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: ./stable/${{ env.MILESTONE }}/alpine-slim
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-slim
+
+  build-alpine:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Login to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and Push "alpine"
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: ./stable/${{ env.MILESTONE }}/alpine
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}
+
+  build-alpine-perl:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Login to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and Push "alpine-perl"
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: ./stable/${{ env.MILESTONE }}/alpine-perl
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-perl
