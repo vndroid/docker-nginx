@@ -5,7 +5,7 @@ on:
     paths:
       - 'stable/1.26/**'
 jobs:
-  docker:
+  docker_build:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
