@@ -1,8 +1,3 @@
-#
-# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
-#
-# PLEASE DO NOT EDIT IT DIRECTLY.
-#
 FROM ghcr.io/vndroid/nginx:1.24.0-alpine3.19
 
 RUN set -x \
