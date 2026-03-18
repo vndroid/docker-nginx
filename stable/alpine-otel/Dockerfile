@@ -3,7 +3,7 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
-FROM nginx:1.26.2-alpine
+FROM vndroid/nginx:1.26.2-alpine3.21
 
 ENV OTEL_VERSION   0.1.0
 
