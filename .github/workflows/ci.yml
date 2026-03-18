@@ -13,6 +13,7 @@ jobs:
       attestations: write
       id-token: write
     env:
+      MILESTONE: '1.26'
       NGX_VER: '1.26.2'
       APL_VER: '3.21'
       HUB_ID: 'vndroid'
@@ -34,27 +35,27 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          context: ./stable/alpine-slim
+          context: ./stable/${{ env.MILESTONE }}/alpine-slim
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-slim
       - name: Build and Push "alpine"
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          context: ./stable/alpine
+          context: ./stable/${{ env.MILESTONE }}/alpine
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }},${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:latest
       - name: Build and Push "alpine-perl"
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          context: ./stable/alpine-perl
+          context: ./stable/${{ env.MILESTONE }}/alpine-perl
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-perl
       - name: Build and Push "alpine-otel"
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          context: ./stable/alpine-otel
+          context: ./stable/${{ env.MILESTONE }}/alpine-otel
           push: true
           tags: ghcr.io/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-otel
