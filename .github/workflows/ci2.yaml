@@ -3,19 +3,19 @@ on:
   push:
     branches: ['main']
     paths:
-      - 'stable/*'
+      - 'stable/1.24/*'
 jobs:
   docker:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
       packages: write
       attestations: write
       id-token: write
     env:
-      MILESTONE: '1.26'
-      NGX_VER: '1.26.2'
-      APL_VER: '3.21'
+      MILESTONE: '1.24'
+      NGX_VER: '1.24.0'
+      APL_VER: '3.19'
       HUB_ID: 'vndroid'
       REGISTRY: ghcr.io
     steps:
@@ -52,10 +52,3 @@ jobs:
           context: ./stable/${{ env.MILESTONE }}/alpine-perl
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-perl
-      - name: Build and Push "alpine-otel"
-        uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64,linux/arm64
-          context: ./stable/${{ env.MILESTONE }}/alpine-otel
-          push: true
-          tags: ghcr.io/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-otel
