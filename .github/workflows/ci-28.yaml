@@ -12,6 +12,7 @@ env:
   NAME: "nginx"
   MILESTONE: "1.28"
   NGX_VER: "1.28.1"
+  APL_VER: "3.23"
   REGISTRY: ghcr.io
 
 jobs:
@@ -20,9 +21,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    strategy:
-      matrix:
-        alpine-version: ["3.21", "3.23"]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -42,9 +40,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-slim
           push: true
-          build-args: |
-            AVER=${{ matrix.alpine-version }}
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ matrix.alpine-version }}-slim
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-slim
 
   build-alpine:
     needs: build-alpine-slim
@@ -52,9 +48,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    strategy:
-      matrix:
-        alpine-version: ["3.21", "3.23"]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -74,9 +67,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine
           push: true
-          build-args: |
-            AVER=${{ matrix.alpine-version }}
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ matrix.alpine-version }}${{ matrix.alpine-version == '3.23' && format(',{0}/{1}/{2}:latest', env.REGISTRY, github.repository_owner, env.NAME) || '' }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}
+            ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:latest
 
   build-alpine-perl:
     needs: build-alpine
@@ -84,9 +77,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    strategy:
-      matrix:
-        alpine-version: ["3.21", "3.23"]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -106,9 +96,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-perl
           push: true
-          build-args: |
-            AVER=${{ matrix.alpine-version }}
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ matrix.alpine-version }}-perl
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-perl
 
   build-alpine-otel:
     needs: build-alpine
@@ -116,9 +104,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    strategy:
-      matrix:
-        alpine-version: ["3.21", "3.23"]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -138,6 +123,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-otel
           push: true
-          build-args: |
-            AVER=${{ matrix.alpine-version }}
-          tags: ghcr.io/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ matrix.alpine-version }}-otel
+          tags: ghcr.io/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-otel
