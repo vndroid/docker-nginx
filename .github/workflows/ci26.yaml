@@ -1,4 +1,4 @@
-name: ci-26
+name: nginx-1.26
 on:
   push:
     branches: ['main']
