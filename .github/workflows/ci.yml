@@ -41,7 +41,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/alpine
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}
+          tags: ${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:${{ env.NGX_VER }}-alpine${{ env.APL_VER }},${{ env.REGISTRY }}/${{ env.HUB_ID }}/nginx:latest
       - name: Build and Push "alpine-perl"
         uses: docker/build-push-action@v6
         with:
