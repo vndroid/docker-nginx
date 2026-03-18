@@ -3,7 +3,7 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
-FROM vndroid/nginx:1.26.2-alpine3.21-slim
+FROM ghcr.io/vndroid/nginx:1.26.2-alpine3.21-slim
 
 ENV NJS_VERSION=0.8.8
 ENV NJS_RELEASE=1
