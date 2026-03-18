@@ -20,7 +20,7 @@ jobs:
             echo "$PKG_NAME Empty"
             exit 1
           fi
-          echo "$PKG_NAME"
+          echo "PACKAGE='${PKG_NAME}'"
           echo "pkg_name=${PKG_NAME}" >> $GITHUB_OUTPUT
   cleanup:
     name: Cleanup untagged images
