@@ -3,7 +3,7 @@ on:
   push:
     branches: ['main']
     paths:
-      - 'stable/1.26/*'
+      - 'stable/1.26/**'
 jobs:
   docker:
     runs-on: ubuntu-24.04
