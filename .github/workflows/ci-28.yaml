@@ -67,9 +67,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}
-            ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:latest
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}
 
   build-alpine-perl:
     needs: build-alpine
