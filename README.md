@@ -1,9 +1,11 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-20.yaml?branch=main&label=1.20%20CI%20)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-22.yaml?branch=main&label=1.22%20CI%20)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-24.yaml?branch=main&label=1.24%20CI%20)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-26.yaml?branch=main&label=1.26%20CI%20)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-28.yaml?branch=main&label=1.28%20CI%20)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vndroid/docker-nginx/ci-30.yaml?branch=main&label=1.30%20CI%20)
 
 ## Quick reference
 
@@ -45,6 +47,13 @@
 - [`1.28.3-alpine3.23`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.28/alpine/Dockerfile)
 - [`1.28.3-alpine3.23-perl`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.28/alpine-perl/Dockerfile)
 - [`1.28.3-alpine3.23-otel`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.28/alpine-otel/Dockerfile)
+
+**1.30**
+
+- [`1.30.0-alpine3.23-slim`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-slim/Dockerfile)
+- [`1.30.0-alpine3.23`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine/Dockerfile)
+- [`1.30.0-alpine3.23-perl`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-perl/Dockerfile)
+- [`1.30.0-alpine3.23-otel`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-otel/Dockerfile)
 
 ## Quick reference (cont.)
 
