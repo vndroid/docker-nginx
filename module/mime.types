@@ -15,6 +15,7 @@ types {
     application/rtf                                     rtf;
     application/vnd.amazon.mobi8-ebook                  azw3;
     application/vnd.android.package-archive             apk;
+    application/vnd.apple.installer+xml                 pkg;
     application/vnd.apple.keynote                       key;
     application/vnd.apple.mpegurl                       m3u8 m3u;
     application/vnd.apple.numbers                       numbers;
@@ -40,6 +41,10 @@ types {
     application/vnd.rar                                 rar;
     application/vnd.wap.wmlc                            wmlc;
     application/wasm                                    wasm;
+    application/x-x509-ca-cert                          der pem crt;
+    application/zip                                     zip;
+    application/zstd                                    zst;
+
     application/x-7z-compressed                         7z;
     application/x-cocoa                                 cco;
     application/x-java-archive-diff                     jardiff;
@@ -52,25 +57,22 @@ types {
     application/x-shockwave-flash                       swf;
     application/x-stuffit                               sit;
     application/x-tcl                                   tcl tk;
-    application/x-x509-ca-cert                          der pem crt;
     application/x-xpinstall                             xpi;
     application/xhtml+xml                               xhtml;
     application/xspf+xml                                xspf;
-    application/zip                                     zip;
 
     application/octet-stream                            bin;
     application/octet-stream                            dmg;
     application/octet-stream                            iso img;
     application/octet-stream                            msi msp msm;
 
-    audio/aac                                           aac loas;
-    audio/mp4                                           m4a;
-    audio/mpeg                                          mp3;
-    audio/ogg                                           ogg;
-    audio/sp-midi                                       mid;
+    audio/aac                                           adts aac loas ass;
+    audio/mp4                                           mp4 mpg4;
+    audio/mpeg                                          mp1 mp2 mp3;
+    audio/ogg                                           oga ogg spx opus;
+    audio/midi-clip                                     midi;
     audio/vnd.dts                                       dts;
     audio/vnd.dts.hd                                    dtshd;
-    audio/x-realaudio                                   ra;
 
     font/otf                                            otf ttf;
     font/woff                                           woff;
@@ -99,10 +101,15 @@ types {
     text/xml                                            xml;
 
     video/3gpp                                          3gpp 3gp;
-    video/MP2T                                          ts;
+    video/mp2t                                          ts;
     video/mp4                                           mp4;
     video/mpeg                                          mpeg mpg;
     video/quicktime                                     mov;
+    video/webm                                          webm;
+    video/x-flv                                         flv;
+    video/x-m4v                                         m4v;
+    video/x-mng                                         mng;
+    video/x-ms-asf                                      asx asf;
     video/x-ms-wmv                                      wmv;
     video/x-msvideo                                     avi;
 }
