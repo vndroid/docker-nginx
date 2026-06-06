@@ -1,4 +1,4 @@
-FROM ghcr.io/vndroid/nginx:1.30.1-alpine3.23
+FROM ghcr.io/vndroid/nginx:1.30.2-alpine3.23
 
 ENV OTEL_VERSION=0.1.2
 
@@ -47,7 +47,7 @@ RUN set -x \
                 export HOME=${tempDir} \
                 && cd ${tempDir} \
                 && curl -f -L -O https://github.com/nginx/pkg-oss/archive/${NGINX_VERSION}-${PKG_RELEASE}.tar.gz \
-                && PKGOSSCHECKSUM=\"05e338105684bf659770c24af35264a25e6d02d4b850c3fb21091dd0815284ab567a0ae03a7756fb4ea94520a7a4057c1bd8967d62cf2fc4cf1fc11d424b56ba *${NGINX_VERSION}-${PKG_RELEASE}.tar.gz\" \
+                && PKGOSSCHECKSUM=\"696af570fb15e8364aebeff1c7f6e36c4ec36a8de93c4d7ee5a3a9310e81716f81083daf4521ae0ec1671077ba0b085305629488b2b7bf792ff61f3b80400e56 *${NGINX_VERSION}-${PKG_RELEASE}.tar.gz\" \
                 && if [ \"\$(openssl sha512 -r ${NGINX_VERSION}-${PKG_RELEASE}.tar.gz)\" = \"\$PKGOSSCHECKSUM\" ]; then \
                     echo \"pkg-oss tarball checksum verification succeeded!\"; \
                 else \
