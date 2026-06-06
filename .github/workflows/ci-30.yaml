@@ -11,13 +11,52 @@ on:
 env:
   NAME: "nginx"
   MILESTONE: "1.30"
-  NGX_VER: "1.30.0"
-  APL_VER: "3.23"
   REGISTRY: ghcr.io
 
 jobs:
+  prepare:
+    name: Parse ARGs
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./stable/${{ env.MILESTONE }}/alpine-slim
+    permissions:
+      contents: read
+    outputs:
+      os_name: ${{ steps.parse.outputs.os_name }}
+      os_vers: ${{ steps.parse.outputs.os_vers }}
+      nx_vers: ${{ steps.parse.outputs.nx_vers }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Parse ARGs from Repository
+        id: parse
+        shell: bash
+        run: |
+          command -v bash || exit 1;
+          if [ ! -f "Dockerfile" ]; then
+            echo "Error: No such file or directory"
+            exit 1
+          fi
+          OS_NAME=$(grep -E '^FROM' Dockerfile | head -n 1 | sed 's/^FROM\s\(.*\):\(.*\)/\1/' | sed 's/[^a-zA-Z]//g')
+          OS_VERS=$(grep -E '^FROM' Dockerfile | head -n 1 | sed 's/^FROM\s\(.*\):\(.*\)/\2/' | sed 's/[^0-9.]//g')
+          NX_VERS=$(grep -E '^ENV\sNGINX_VERSION' Dockerfile | head -n 1 | sed 's/^ENV\sNGINX_VERSION=\(.*\)/\1/' | sed 's/[^0-9.]//g')
+          # check if values are empty
+          if [ -z "$OS_NAME" ] || [ -z "$OS_VERS" ] || [ -z "$NX_VERS" ]; then
+            echo "Error: One or more ARG values are empty"
+            exit 1
+          fi
+          # echo results
+          echo "OS_NAME: '${OS_NAME}'"
+          echo "OS_VERS: '${OS_VERS}'"
+          echo "NX_VERS: '${NX_VERS}'"
+          # set outputs
+          echo "os_name=${OS_NAME}" >> $GITHUB_OUTPUT
+          echo "os_vers=${OS_VERS}" >> $GITHUB_OUTPUT
+          echo "nx_vers=${NX_VERS}" >> $GITHUB_OUTPUT
   build-alpine-slim:
     runs-on: ubuntu-24.04
+    needs: prepare
     permissions:
       contents: read
       packages: write
@@ -40,11 +79,13 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-slim
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-slim
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}-slim
 
   build-alpine:
-    needs: build-alpine-slim
     runs-on: ubuntu-24.04
+    needs:
+      - prepare
+      - build-alpine-slim
     permissions:
       contents: read
       packages: write
@@ -68,12 +109,14 @@ jobs:
           context: ./stable/${{ env.MILESTONE }}/alpine
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}
+            ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}
             ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:latest
 
   build-alpine-perl:
-    needs: build-alpine
     runs-on: ubuntu-24.04
+    needs:
+      - prepare
+      - build-alpine
     permissions:
       contents: read
       packages: write
@@ -96,11 +139,13 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-perl
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-perl
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}-perl
 
   build-alpine-otel:
-    needs: build-alpine
     runs-on: ubuntu-24.04
+    needs:
+      - prepare
+      - build-alpine
     permissions:
       contents: read
       packages: write
@@ -123,4 +168,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-otel
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ env.NAME }}:${{ env.NGX_VER }}-alpine${{ env.APL_VER }}-otel
+          tags: ghcr.io/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}-otel
