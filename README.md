@@ -50,10 +50,10 @@
 
 **1.30**
 
-- [`1.30.0-alpine3.23-slim`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-slim/Dockerfile)
-- [`1.30.0-alpine3.23`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine/Dockerfile)
-- [`1.30.0-alpine3.23-perl`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-perl/Dockerfile)
-- [`1.30.0-alpine3.23-otel`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-otel/Dockerfile)
+- [`1.30.1-alpine3.23-slim`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-slim/Dockerfile)
+- [`1.30.1-alpine3.23`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine/Dockerfile)
+- [`1.30.1-alpine3.23-perl`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-perl/Dockerfile)
+- [`1.30.1-alpine3.23-otel`](https://github.com/vndroid/docker-nginx/blob/main/stable/1.30/alpine-otel/Dockerfile)
 
 ## Quick reference (cont.)
 

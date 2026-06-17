@@ -55,6 +55,7 @@ jobs:
           echo "os_vers=${OS_VERS}" >> $GITHUB_OUTPUT
           echo "nx_vers=${NX_VERS}" >> $GITHUB_OUTPUT
   build-alpine-slim:
+    name: Build Image alpine-slim 
     runs-on: ubuntu-24.04
     needs: prepare
     permissions:
@@ -82,6 +83,7 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}-slim
 
   build-alpine:
+    name: Build Image alpine
     runs-on: ubuntu-24.04
     needs:
       - prepare
@@ -113,6 +115,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:latest
 
   build-alpine-perl:
+    name: Build Image alpine-perl
     runs-on: ubuntu-24.04
     needs:
       - prepare
@@ -142,6 +145,7 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}-perl
 
   build-alpine-otel:
+    name: Build Image alpine-otel
     runs-on: ubuntu-24.04
     needs:
       - prepare
@@ -168,4 +172,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: ./stable/${{ env.MILESTONE }}/alpine-otel
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}-otel
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}-otel
