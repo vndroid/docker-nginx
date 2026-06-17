@@ -8,7 +8,7 @@ on:
 jobs:
   prepare:
     name: Output package name
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     outputs:
       pkg_name: ${{ steps.parse.outputs.pkg_name }}
     steps:
@@ -26,7 +26,7 @@ jobs:
           echo "pkg_name=${PKG_NAME}" >> $GITHUB_OUTPUT
   cleanup:
     name: Cleanup untagged images
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     permissions:
       packages: write
     needs: 

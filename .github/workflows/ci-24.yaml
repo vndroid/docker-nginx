@@ -11,7 +11,7 @@ env:
   MILESTONE: "1.24"
   NGX_VER: "1.24.0"
   APL_VER: "3.19"
-  REGISTRY: ghcr.io
+  REGISTRY: "ghcr.io"
 
 jobs:
   build-alpine-slim:

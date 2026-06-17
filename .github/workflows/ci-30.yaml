@@ -11,7 +11,7 @@ on:
 env:
   NAME: "nginx"
   MILESTONE: "1.30"
-  REGISTRY: ghcr.io
+  REGISTRY: "ghcr.io"
 
 jobs:
   prepare:
@@ -72,6 +72,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+        with:
+          platforms: linux/amd64,linux/arm64
+          cache-image: false
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       - name: Build and Push "alpine-slim"
@@ -102,6 +105,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+        with:
+          platforms: linux/amd64,linux/arm64
+          cache-image: false
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       - name: Build and Push "alpine"
@@ -134,6 +140,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+        with:
+          platforms: linux/amd64,linux/arm64
+          cache-image: false
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       - name: Build and Push "alpine-perl"
@@ -164,6 +173,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+        with:
+          platforms: linux/amd64,linux/arm64
+          cache-image: false
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       - name: Build and Push "alpine-otel"
