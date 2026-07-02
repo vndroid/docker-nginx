@@ -1,6 +1,6 @@
 FROM ghcr.io/vndroid/nginx:1.30.3-alpine3.23-slim
 
-ENV NJS_VERSION=0.9.9
+ENV NJS_VERSION=1.0.0
 ENV NJS_RELEASE=1
 ENV ACME_VERSION=0.4.1
 
