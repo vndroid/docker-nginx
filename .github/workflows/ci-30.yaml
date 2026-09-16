@@ -185,3 +185,45 @@ jobs:
           context: ./stable/${{ env.MILESTONE }}/alpine-otel
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}-otel
+
+  test-new-image:
+    name: Test ${{ matrix.variant }} (${{ matrix.arch }})
+    runs-on: ubuntu-24.04
+    needs:
+      - prepare
+      - build-alpine-slim
+      - build-alpine
+      - build-alpine-perl
+      - build-alpine-otel
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, arm64]
+        variant: [alpine, alpine-slim, alpine-perl, alpine-otel]
+    steps:
+      - name: Set up QEMU
+        if: matrix.arch == 'arm64'
+        uses: docker/setup-qemu-action@v4
+        with:
+          platforms: linux/arm64
+          cache-image: false
+      - name: Check Nginx version
+        shell: bash
+        env:
+          IMAGE_BASE: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.NAME }}:${{ needs.prepare.outputs.nx_vers }}-${{ needs.prepare.outputs.os_name }}${{ needs.prepare.outputs.os_vers }}
+          EXPECTED_VERSION: ${{ needs.prepare.outputs.nx_vers }}
+          VARIANT: ${{ matrix.variant }}
+          ARCH: ${{ matrix.arch }}
+        run: |
+          suffix="${VARIANT#alpine}"
+          image="${IMAGE_BASE}${suffix}"
+          docker pull --platform "linux/${ARCH}" "$image"
+          if ! version=$(docker run --rm --platform "linux/${ARCH}" "$image" nginx -v 2>&1); then
+            printf '%s\n' "$version"
+            exit 1
+          fi
+          printf '%s\n' "$version"
+          if ! grep -Fxq "nginx version: nginx/${EXPECTED_VERSION}" <<< "$version"; then
+            printf '::error::Expected nginx version: nginx/%s for %s (%s)\n' "$EXPECTED_VERSION" "$image" "$ARCH"
+            exit 1
+          fi
